@@ -41,13 +41,9 @@ Output tree (nested in each series folder for searchability):
     <lif_name>/
       <series_name>/
         stacks/
-          DAPI_stack.tif
-          Reference_stack.tif
-          Target_stack.tif
+          <series_name>_stack.tif
         registered_stacks/
-          DAPI_stack_registered.tif
-          Reference_stack_registered.tif
-          Target_stack_registered.tif
+          <series_name>_stack_registered.tif
         GIFS/
           <series_name>_sidebyside.gif
         MIP/
@@ -1176,6 +1172,7 @@ def save_series_outputs(
     metadata["preprocessing"] = preprocessing_block
     with open(series_dir / "metadata.json", "w", encoding="utf-8") as f:
         json.dump(metadata, f, indent=2, ensure_ascii=False, default=str)
+    series.metadata = metadata
 
     return series_dir
 
@@ -1363,6 +1360,7 @@ def process_series(
     gif_duration_per_frame: float = 0.25,
     verbose: bool = True,
     show_mip: bool = False,
+    save_raw_stacks_if_missing: bool = True,
 ):
     print(f"\n[PROCESS] {series.lif_name} :: {series.series_name}")
 
@@ -1407,6 +1405,7 @@ def process_series(
         registered_stacks=reg_result["registered_stacks"],
         transform_log=reg_result["transform_log"],
         channel_labels=channel_labels,
+        save_raw_stacks_if_missing=save_raw_stacks_if_missing,
         registration_params={
             "reference_channel": channel_labels[1],
             "jump_threshold_voxels": jump_threshold_voxels,
