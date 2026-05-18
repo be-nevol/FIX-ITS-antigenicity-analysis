@@ -1,20 +1,24 @@
-# Data and generated outputs
+# Data and generated analysis outputs
 data/
 analysis_results/
 executed_notebooks/
 logs/
 
-# Python caches and notebook checkpoints
+# Local runtime/cache files
 __pycache__/
 *.py[cod]
+.matplotlib/
 .ipynb_checkpoints/
 .venv/
 venv/
 env/
 
-# macOS metadata/resource fork files
-._*
+# macOS metadata sidecar files
 .DS_Store
+._*
+
+# Editor-local settings
+.vscode/
 
 # Large microscopy/image artifacts and generated reports
 *.lif
@@ -24,6 +28,3 @@ env/
 *.png
 *.pdf
 *.csv
-
-# Local/editor metadata
-.vscode/
